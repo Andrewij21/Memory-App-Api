@@ -6,5 +6,8 @@ router
   .get(albumController.getPhoto)
   .post(albumController.createPhoto);
 
-router.route("/:id").patch(albumController.updatePhoto);
+router
+  .route("/:id")
+  .patch(albumController.updatePhoto)
+  .delete(albumController.deletePhoto);
 module.exports = router;

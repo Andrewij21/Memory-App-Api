@@ -43,6 +43,15 @@ class AlbumControllers {
     }
     checkResponse(res, response, __filename);
   }
+  async deletePhoto(req, res) {
+    try {
+      const data = await albumService.delete(req.params.id);
+      response = data;
+    } catch (error) {
+      response = error;
+    }
+    checkResponse(res, response, __filename);
+  }
 }
 
 module.exports = new AlbumControllers();
