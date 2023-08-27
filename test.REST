@@ -1,0 +1,24 @@
+@BASE_URL = "http://localhost:3000" 
+
+###
+POST http://localhost:3000/album
+Content-Type: application/json
+
+{
+    "name":"Show me the Magic",
+    "date":"8/12/2023",
+    "image":"https://footwearnews.com/wp-content/uploads/2020/10/magic-trade-show-las-vegas.jpg",
+    "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores maiores officiis quae distinctio ipsa vitae nobis consectetur dolor enim in!"
+}
+###
+PATCH  http://localhost:3000/album/64eaa4c1ea8b649ec051a720
+Content-Type: application/json
+
+{
+    "name":"Show me the Magic for children",
+    "date":"27/12/2023",
+    "image":"https://footwearnews.com/wp-content/uploads/2020/10/magic-trade-show-las-vegas.jpg",
+    "description":"is there any Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores maiores officiis quae distinctio ipsa vitae nobis consectetur dolor enim in!"
+}
+###
+GET http://localhost:3000/album
