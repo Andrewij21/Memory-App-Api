@@ -5,11 +5,10 @@ const logger = getLogger(__filename);
 const corsOptions = {
   origin: (origin, callback) => {
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      logger.info(`Access granted for origin ${origin}`);
+      // logger.info(`Access granted for origin ${origin}`);
       callback(null, true);
     } else {
-      logger.error(`Access denied for origin ${origin}`);
-      // callback(new Error("Not allowed by CORS"));
+      // logger.error(`Access denied for origin ${origin}`);
       callback(null, false);
     }
   },
