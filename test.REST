@@ -5,9 +5,9 @@ POST http://localhost:3000/album
 Content-Type: application/json
 
 {
-    "name":"test",
+    "name":"a           ",
     "date":"8/12/2023",
-    "image":"https://footwearnews.com/wp-content/uploads/2020/10/magic-trade-show-las-vegas.jpg",
+    "image":"https://assets.simpleviewcms.com/simpleview/image/upload/c_limit,h_1200,q_75,w_1200/v1/clients/lasvegas/strip_b86ddbea-3add-4995-b449-ac85d700b027.jpg",
     "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores maiores officiis quae distinctio ipsa vitae nobis consectetur dolor enim in!"
 }
 ###
