@@ -21,7 +21,10 @@ class AlbumControllers {
       return res.status(400).json({ message: check.msg });
     }
     try {
-      const data = await albumService.create(req.body);
+      const data = await albumService.create({
+        ...req.body,
+        name: name.trim(),
+      });
       response = data;
     } catch (error) {
       response = error;
@@ -36,7 +39,13 @@ class AlbumControllers {
       return res.status(400).json({ message: check.msg });
     }
     try {
-      const data = await albumService.update(req.body, req.params.id);
+      const data = await albumService.update(
+        {
+          ...req.body,
+          name: name.trim(),
+        },
+        req.params.id
+      );
       response = data;
     } catch (error) {
       response = error;
