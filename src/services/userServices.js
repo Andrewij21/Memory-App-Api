@@ -1,5 +1,6 @@
 const User = require("../models/userModel.js");
 const isValidId = require("../utils/isValidId.js");
+const bcrypt = require("bcrypt");
 const { requestResponse } = require("../utils/requestResponse.js");
 const getLogger = require("../utils/logger.js");
 const logger = getLogger(__filename);
@@ -14,9 +15,14 @@ class UserServices {
     const exist = await User.findOne({ email: body.email });
     if (exist) return { ...requestResponse.conflict };
 
-    const result = await User.create(body);
+    const hashPassword = await bcrypt.hash(body.password, 10);
+    const result = await User.create({ ...body, password: hashPassword });
+
     logger.info(`Create user with ID ${result._id}  `);
-    return { ...requestResponse.created, data: result };
+    return {
+      ...requestResponse.created,
+      data: { id: result._id, email: result.email },
+    };
   }
   async update(body, _id) {
     if (!isValidId(_id))
