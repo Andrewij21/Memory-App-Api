@@ -11,6 +11,9 @@ class UserServices {
     return { ...requestResponse.success, data: users };
   }
   async create(body) {
+    const exist = await User.findOne({ email: body.email });
+    if (exist) return { ...requestResponse.conflict };
+
     const result = await User.create(body);
     logger.info(`Create user with ID ${result._id}  `);
     return { ...requestResponse.created, data: result };
