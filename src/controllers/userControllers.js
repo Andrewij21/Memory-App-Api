@@ -15,15 +15,15 @@ class UserControllers {
   }
 
   async createUser(req, res) {
-    const { name, date } = req.body;
-    const check = checkIfEmpty([name, date]);
+    const { email, password } = req.body;
+    const check = checkIfEmpty([email, password]);
     if (check.status) {
       return res.status(400).json({ message: check.msg });
     }
     try {
       const data = await userService.create({
-        ...req.body,
-        name: name.trim(),
+        email: email.trim(),
+        password: password.trim(),
       });
       response = data;
     } catch (error) {
