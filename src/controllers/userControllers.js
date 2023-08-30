@@ -33,8 +33,8 @@ class UserControllers {
   }
 
   async updateUser(req, res) {
-    const { name, date } = req.body;
-    const check = checkIfEmpty([name, date]);
+    const { email, password } = req.body;
+    const check = checkIfEmpty([email, password]);
     if (check.status) {
       return res.status(400).json({ message: check.msg });
     }
@@ -42,7 +42,6 @@ class UserControllers {
       const data = await userService.update(
         {
           ...req.body,
-          name: name.trim(),
         },
         req.params.id
       );
