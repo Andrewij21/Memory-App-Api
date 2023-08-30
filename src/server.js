@@ -7,12 +7,16 @@ const routes = require("./routes");
 const getLogger = require("./utils/logger");
 const corsOptions = require("./config/corsOptions");
 const app = express();
+const cookieParser = require("cookie-parser");
 const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || "development";
 const logger = getLogger(__filename);
 
 // Accept JSON
 app.use(express.json());
+
+// Accept cookies
+app.use(cookieParser());
 
 // Cors
 app.use(cors(corsOptions));
