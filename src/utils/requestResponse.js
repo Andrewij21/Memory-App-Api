@@ -9,6 +9,11 @@ const requestResponse = {
     status: true,
     message: "Resource created succesfully.",
   },
+  no_content: {
+    code: 204,
+    status: true,
+    message: "No Content.",
+  },
   bad_request: {
     code: 400,
     status: false,
