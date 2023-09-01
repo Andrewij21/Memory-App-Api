@@ -13,8 +13,6 @@ class refreshTokenServices {
       refreshToken,
       process.env.SECRET_REFRESH_TOKEN
     );
-    console.log({ user });
-    console.log({ token });
 
     if (!token || token.email !== user.email)
       return { ...requestResponse.forbidden };
