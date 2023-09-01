@@ -25,6 +25,11 @@ const requestResponse = {
     message:
       "user or password does not match, or you are not authorized to accessing this page.",
   },
+  forbidden: {
+    code: 403,
+    status: false,
+    message: "Invalid token",
+  },
   not_found: {
     code: 404,
     status: false,
