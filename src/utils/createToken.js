@@ -5,7 +5,7 @@ const logger = getLogger(__filename);
 const createToken = async (payload) => {
   try {
     const accessToken = jwt.sign(payload, process.env.SECRET_ACCESS_TOKEN, {
-      expiresIn: "10s",
+      expiresIn: "1m",
     });
 
     const refreshToken = jwt.sign(
