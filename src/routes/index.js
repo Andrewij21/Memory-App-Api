@@ -2,6 +2,7 @@ const router = require("express").Router();
 const albumRoutes = require("./albumRoutes");
 const userRoutes = require("./userRoutes");
 const authRoutes = require("./authRoutes");
+const registerRoutes = require("./registerRoutes");
 const refreshTokenRoutes = require("./refreshTokenRoutes");
 const verifyJwt = require("../middlewares/verifyJwt");
 const verifyRoles = require("../middlewares/verifyRoles");
@@ -12,6 +13,7 @@ router.get("/", (req, res) => {
 });
 
 router.use("/auth", authRoutes);
+router.use("/register", registerRoutes);
 router.use("/refresh", refreshTokenRoutes);
 
 router.use(verifyJwt);
