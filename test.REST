@@ -1,11 +1,14 @@
 @BASE_URL = "http://localhost:3000" 
+@TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3Q0QG1haWwuY29tIiwicm9sZXMiOlsyMDAwXSwiaWF0IjoxNjk0MDU0MTE1LCJleHAiOjE2OTQwNTQxNzV9.BBVhDoVWruquaDK8tm8OR0wmJRwQZfvTXo8ZWSlId3w"
 
 ###
 POST http://localhost:3000/album
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3Q0QG1haWwuY29tIiwicm9sZXMiOlsyMDAwXSwiaWF0IjoxNjk0MDU0MTkwLCJleHAiOjE2OTQwNTQyNTB9.qurPt_z4UCFxym1AGs0vwYs9JOP3AQ3WNd10g7qeJ9M
 
 {
-    "name":"a           ",
+    "name":"test upload",
+    "user":"64eeca4d2ef4af3d4daeb4f3",
     "date":"8/12/2023",
     "image":"https://assets.simpleviewcms.com/simpleview/image/upload/c_limit,h_1200,q_75,w_1200/v1/clients/lasvegas/strip_b86ddbea-3add-4995-b449-ac85d700b027.jpg",
     "description":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores maiores officiis quae distinctio ipsa vitae nobis consectetur dolor enim in!"
@@ -22,5 +25,16 @@ Content-Type: application/json
 }
 ###
 GET http://localhost:3000/album
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3Q0QG1haWwuY29tIiwicm9sZXMiOlsyMDAwXSwiaWF0IjoxNjk0MDU2MDc3LCJleHAiOjE2OTQwNTYxMzd9.R7luMh4M00XIwDwsiAzFNMbUEDhuRF5jfbA5i0kCcvw
+
 ###
 DELETE http://localhost:3000/album/64eb1f6e7013fd12d012efdc
+
+###
+POST http://localhost:3000/auth
+Content-Type: application/json
+
+{
+    "email":"test4@mail.com",
+    "password":"123"
+}
