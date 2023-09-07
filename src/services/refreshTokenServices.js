@@ -19,7 +19,7 @@ class refreshTokenServices {
 
     const roles = Object.values(user.roles).filter(Boolean);
     const accessToken = jwt.sign(
-      { email: token.email, roles },
+      { email: token.email, roles, user: user._id },
       process.env.SECRET_ACCESS_TOKEN,
       { expiresIn: "10s" }
     );

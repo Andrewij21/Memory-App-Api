@@ -22,13 +22,13 @@ class AuthServices {
 
     const token = await createToken(payload);
     user.refreshToken = token.refreshToken;
-    const result = await user.save();
+    await user.save();
     logger.info(`User ${user.email} is login`);
     return {
       refreshToken: token.refreshToken,
       data: {
         ...requestResponse.success,
-        data: { accessToken: token.accessToken, roles },
+        data: { accessToken: token.accessToken, roles, user: user._id },
       },
     };
   }
