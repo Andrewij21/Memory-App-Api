@@ -11,6 +11,8 @@ class AlbumServices {
     return { ...requestResponse.success, data: album };
   }
   async create(body) {
+    if (!isValidId(body.user))
+      throw { ...requestResponse.bad_request, message: "Invalid ID" };
     const result = await Album.create(body);
     logger.info(`Create photo with ID ${result._id}  `);
     return { ...requestResponse.created, data: result };
