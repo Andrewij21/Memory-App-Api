@@ -10,4 +10,7 @@ router
   .route("/:id")
   .patch(albumController.updatePhoto)
   .delete(albumController.deletePhoto);
+
+router.route("/user/:id").get(albumController.getPhotoByUser);
+
 module.exports = router;

@@ -10,6 +10,11 @@ class AlbumServices {
     logger.info(`Get ${album.length} photos `);
     return { ...requestResponse.success, data: album };
   }
+  async getByUserId(user) {
+    const album = await Album.find({ user });
+    logger.info(`Get ${album.length} photos from user ${user} `);
+    return { ...requestResponse.success, data: album };
+  }
   async create(body) {
     if (!isValidId(body.user))
       throw { ...requestResponse.bad_request, message: "Invalid ID" };

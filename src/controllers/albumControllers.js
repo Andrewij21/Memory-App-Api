@@ -13,6 +13,15 @@ class AlbumControllers {
     }
     checkResponse(res, response, __filename);
   }
+  async getPhotoByUser(req, res) {
+    try {
+      const data = await albumService.getByUserId(req.params.id);
+      response = data;
+    } catch (error) {
+      response = error;
+    }
+    checkResponse(res, response, __filename);
+  }
 
   async createPhoto(req, res) {
     const { name, date } = req.body;
