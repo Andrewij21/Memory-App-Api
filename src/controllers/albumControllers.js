@@ -44,7 +44,7 @@ class AlbumControllers {
 
   async updatePhoto(req, res) {
     const { name, date } = req.body;
-    const check = checkIfEmpty([name, date]);
+    const check = checkIfEmpty({ name, date });
     if (check.status) {
       return res.status(400).json({ message: check.msg });
     }

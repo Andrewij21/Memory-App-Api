@@ -16,7 +16,7 @@ class UserControllers {
 
   async createUser(req, res) {
     const { email, password } = req.body;
-    const check = checkIfEmpty([email, password]);
+    const check = checkIfEmpty({ email, password });
     if (check.status) {
       return res.status(400).json({ message: check.msg });
     }
@@ -34,7 +34,7 @@ class UserControllers {
 
   async updateUser(req, res) {
     const { email, password } = req.body;
-    const check = checkIfEmpty([email, password]);
+    const check = checkIfEmpty({ email, password });
     if (check.status) {
       return res.status(400).json({ message: check.msg });
     }
