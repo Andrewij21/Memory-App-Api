@@ -24,14 +24,15 @@ class AlbumControllers {
   }
 
   async createPhoto(req, res) {
-    const { name, date } = req.body;
-    const check = checkIfEmpty([name, date]);
-    if (check.status) {
-      return res.status(400).json({ message: check.msg });
+    const { name } = req.body;
+    const check = req.status;
+    if (!check.status) {
+      return res.status(400).json({ message: check.message });
     }
     try {
       const data = await albumService.create({
         ...req.body,
+        image: req.file.filename,
         name: name.trim(),
       });
       response = data;
