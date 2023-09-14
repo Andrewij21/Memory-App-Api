@@ -1,10 +1,11 @@
 const router = require("express").Router();
 const albumController = require("../controllers/albumControllers");
+const upload = require("../middlewares/upload");
 
 router
   .route("/")
   .get(albumController.getPhoto)
-  .post(albumController.createPhoto);
+  .post(upload.single("image"), albumController.createPhoto);
 
 router
   .route("/:id")
