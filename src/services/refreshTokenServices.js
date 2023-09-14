@@ -25,7 +25,10 @@ class refreshTokenServices {
     );
 
     logger.info(`refresh token user ${token.email}`);
-    return { ...requestResponse.success, data: { accessToken, roles } };
+    return {
+      ...requestResponse.success,
+      data: { accessToken, roles, user: user._id },
+    };
   }
 }
 
