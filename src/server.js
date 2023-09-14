@@ -12,6 +12,9 @@ const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || "development";
 const logger = getLogger(__filename);
 
+// Static files
+app.use(express.static("public"));
+
 // Accept JSON
 app.use(express.json());
 
