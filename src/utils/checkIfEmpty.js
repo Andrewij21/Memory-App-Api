@@ -1,20 +1,18 @@
 function isNullOrWhitespace(input) {
-  //   return input?.length > 0
-  //     ? input.forEach((field) => {
-  //         if (/^\s*$/.test(field))
-  //           return { status: true, msg: `${field} can not empty!!!` };
-  //       })
-  //     : /^\s*$/.test(input);
-  if (input.length > 0) {
-    for (const field of input) {
-      if (/^\s*$/.test(field)) {
-        return { status: true, msg: `Field can not empty!!!` };
-      }
+  const emptyFileds = [];
+
+  for (const field in input) {
+    console.log({ field });
+    if (!field || /^\s*$/.test(input[field])) {
+      emptyFileds.push(field);
     }
-    return { status: false };
-  } else {
-    return /^\s*$/.test(input);
   }
+  if (emptyFileds.length > 0)
+    return {
+      status: true,
+      msg: `Fields [${emptyFileds.join(", ")}] cannot empty!!!`,
+    };
+  return { status: false };
 }
 
 module.exports = isNullOrWhitespace;
