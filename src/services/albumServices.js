@@ -2,6 +2,7 @@ const Album = require("../models/albumModel.js");
 const isValidId = require("../utils/isValidId.js");
 const { requestResponse } = require("../utils/requestResponse.js");
 const getLogger = require("../utils/logger.js");
+const fs = require("fs");
 const logger = getLogger(__filename);
 
 class AlbumServices {
@@ -22,29 +23,48 @@ class AlbumServices {
     logger.info(`Create photo with ID ${result._id}  `);
     return { ...requestResponse.created, data: result };
   }
-  async update(body, _id) {
+  async update(body, _id, file) {
     if (!isValidId(_id))
       throw { ...requestResponse.bad_request, message: "Invalid ID" };
-    const photo = await Album.findOneAndUpdate(
+
+    const existingPhoto = await Album.findOne({ _id });
+    if (!existingPhoto) throw { ...requestResponse.not_found };
+
+    if (file) {
+      const imagePath = `public/images/${existingPhoto.image}`;
+      if (fs.existsSync(imagePath)) {
+        logger.info(`Image ${existingPhoto.image} is deleted `);
+        fs.unlinkSync(imagePath);
+      }
+    }
+
+    const updatedPhoto = await Album.findOneAndUpdate(
       { _id },
-      { ...body },
+      { ...body, image: file?.filename || body.image },
       { new: true }
     );
+    if (!updatedPhoto) throw { ...requestResponse.not_found };
+    // console.log({ body, file });
 
-    if (!photo) throw { ...requestResponse.not_found };
-
-    logger.info(`Update photos with ID ${photo._id} `);
-    return { ...requestResponse.success, data: photo };
+    logger.info(`Update photos with ID ${updatedPhoto._id} `);
+    return { ...requestResponse.success, data: updatedPhoto };
   }
   async delete(_id) {
     if (!isValidId(_id))
       throw { ...requestResponse.bad_request, message: "Invalid ID" };
+
     const photo = await Album.findOneAndDelete({ _id });
 
     if (!photo) throw { ...requestResponse.not_found };
 
+    const imagePath = `public/images/${photo.image}`;
+    if (fs.existsSync(imagePath)) {
+      fs.unlinkSync(imagePath);
+    }
+
     logger.info(`Delete photo with ID ${photo._id} `);
     return { ...requestResponse.success, data: photo };
+    // return { ...requestResponse.success, data: photo };
   }
 }
 
