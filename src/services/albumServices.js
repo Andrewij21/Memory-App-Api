@@ -40,7 +40,7 @@ class AlbumServices {
 
     const updatedPhoto = await Album.findOneAndUpdate(
       { _id },
-      { ...body, image: file?.filename || body.image },
+      { ...body, image: file?.filename },
       { new: true }
     );
     if (!updatedPhoto) throw { ...requestResponse.not_found };
@@ -59,6 +59,7 @@ class AlbumServices {
 
     const imagePath = `public/images/${photo.image}`;
     if (fs.existsSync(imagePath)) {
+      logger.info(`Image ${existingPhoto.image} is deleted `);
       fs.unlinkSync(imagePath);
     }
 
