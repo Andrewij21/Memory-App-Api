@@ -59,7 +59,7 @@ class AlbumServices {
 
     const imagePath = `public/images/${photo.image}`;
     if (fs.existsSync(imagePath)) {
-      logger.info(`Image ${existingPhoto.image} is deleted `);
+      logger.info(`Image ${photo.image} is deleted `);
       fs.unlinkSync(imagePath);
     }
 
