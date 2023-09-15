@@ -9,7 +9,7 @@ router
 
 router
   .route("/:id")
-  .patch(albumController.updatePhoto)
+  .patch(upload.single("image"), albumController.updatePhoto)
   .delete(albumController.deletePhoto);
 
 router.route("/user/:id").get(albumController.getPhotoByUser);
