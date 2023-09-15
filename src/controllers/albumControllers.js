@@ -54,7 +54,8 @@ class AlbumControllers {
           ...req.body,
           name: name.trim(),
         },
-        req.params.id
+        req.params.id,
+        req.file
       );
       response = data;
     } catch (error) {
