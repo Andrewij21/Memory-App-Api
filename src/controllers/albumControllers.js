@@ -25,11 +25,12 @@ class AlbumControllers {
 
   async createPhoto(req, res) {
     const { name } = req.body;
-    const check = req.status;
-    if (!check.status) {
-      return res.status(400).json({ message: check.message });
-    }
+    // console.log({ body: req.body, file: req.file });
     try {
+      const check = req.status;
+      if (!check.status) {
+        return res.status(400).json({ message: check.message });
+      }
       const data = await albumService.create({
         ...req.body,
         image: req.file.filename,
@@ -44,11 +45,12 @@ class AlbumControllers {
 
   async updatePhoto(req, res) {
     const { name, date } = req.body;
-    const check = checkIfEmpty({ name, date });
-    if (check.status) {
-      return res.status(400).json({ message: check.msg });
-    }
+    // console.log({ body: req.body, file: req.file });
     try {
+      const check = checkIfEmpty({ name, date });
+      if (check.status) {
+        return res.status(400).json({ message: check.msg });
+      }
       const data = await albumService.update(
         {
           ...req.body,
