@@ -20,7 +20,6 @@ module.exports = multer({
   fileFilter: (req, file, cb) => {
     const { name, date } = req.body;
     const check = checkIfEmpty({ name, date });
-    console.log({ check });
     if (check.status) {
       req.status = { status: false, message: check.msg };
       return cb(null, false);
