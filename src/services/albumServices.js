@@ -6,10 +6,29 @@ const fs = require("fs");
 const logger = getLogger(__filename);
 
 class AlbumServices {
-  async get() {
-    const album = await Album.find({});
+  async get(pageNumber = 2, pageSize = 6) {
+    const skip = (pageNumber - 1) * pageSize;
+    const totalItems = await Album.countDocuments({});
+    const totalPages = Math.ceil(totalItems / pageSize);
+
+    if (pageNumber < 1 || pageNumber > totalPages) {
+      return {
+        ...requestResponse.error,
+        message: "Invalid page number",
+      };
+    }
+    const album = await Album.find({}).skip(skip).limit(pageSize);
     logger.info(`Get ${album.length} photos `);
-    return { ...requestResponse.success, data: album };
+    return {
+      ...requestResponse.success,
+      data: album,
+      pagination: {
+        currentPage: pageNumber,
+        totalPages: totalPages,
+        pageSize: pageSize,
+        totalItems: totalItems,
+      },
+    };
   }
   async getByUserId(user) {
     const album = await Album.find({ user });
