@@ -6,7 +6,8 @@ let response;
 class AlbumControllers {
   async getPhoto(req, res) {
     try {
-      const data = await albumService.get();
+      const { page, size } = req.query;
+      const data = await albumService.get(page, size);
       response = data;
     } catch (error) {
       response = error;
@@ -15,7 +16,8 @@ class AlbumControllers {
   }
   async getPhotoByUser(req, res) {
     try {
-      const data = await albumService.getByUserId(req.params.id);
+      const { page, size, user } = req.query;
+      const data = await albumService.getByUserId(page, size, user);
       response = data;
     } catch (error) {
       response = error;
