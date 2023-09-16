@@ -2,38 +2,44 @@ const Album = require("../models/albumModel.js");
 const isValidId = require("../utils/isValidId.js");
 const { requestResponse } = require("../utils/requestResponse.js");
 const getLogger = require("../utils/logger.js");
+const pagination = require("../utils/pagination.js");
 const fs = require("fs");
 const logger = getLogger(__filename);
 
 class AlbumServices {
-  async get(pageNumber = 2, pageSize = 6) {
-    const skip = (pageNumber - 1) * pageSize;
+  async get(pageNumber = 1, pageSize = 6) {
     const totalItems = await Album.countDocuments({});
-    const totalPages = Math.ceil(totalItems / pageSize);
-
-    if (pageNumber < 1 || pageNumber > totalPages) {
-      return {
-        ...requestResponse.error,
-        message: "Invalid page number",
-      };
-    }
-    const album = await Album.find({}).skip(skip).limit(pageSize);
+    const page = pagination(pageNumber, pageSize, totalItems);
+    if (page.code === 400) throw page;
+    const album = await Album.find({}).skip(page.skip).limit(pageSize);
     logger.info(`Get ${album.length} photos `);
     return {
       ...requestResponse.success,
       data: album,
       pagination: {
-        currentPage: pageNumber,
-        totalPages: totalPages,
-        pageSize: pageSize,
+        currentPage: parseInt(pageNumber),
+        totalPages: page.totalPages,
+        pageSize: parseInt(pageSize),
         totalItems: totalItems,
       },
     };
   }
-  async getByUserId(user) {
-    const album = await Album.find({ user });
+  async getByUserId(pageNumber = 1, pageSize = 6, user) {
+    const totalItems = await Album.countDocuments({ user });
+    const page = pagination(pageNumber, pageSize, totalItems);
+    if (page.code === 400) throw page;
+    const album = await Album.find({ user }).skip(page.skip).limit(pageSize);
     logger.info(`Get ${album.length} photos from user ${user} `);
-    return { ...requestResponse.success, data: album };
+    return {
+      ...requestResponse.success,
+      data: album,
+      pagination: {
+        currentPage: parseInt(pageNumber),
+        totalPages: page.totalPages,
+        pageSize: parseInt(pageSize),
+        totalItems: totalItems,
+      },
+    };
   }
   async create(body) {
     if (!isValidId(body.user))
