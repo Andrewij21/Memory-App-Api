@@ -12,6 +12,6 @@ router
   .patch(upload.single("image"), albumController.updatePhoto)
   .delete(albumController.deletePhoto);
 
-router.route("/user/:id").get(albumController.getPhotoByUser);
+router.route("/user").get(albumController.getPhotoByUser);
 
 module.exports = router;
