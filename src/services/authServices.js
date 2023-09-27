@@ -43,6 +43,14 @@ class AuthServices {
 
     return { ...requestResponse.no_content };
   }
+
+  async forgetPassword(email) {
+    const user = await User.findOne({ email });
+    if (!user) throw { ...requestResponse.not_found };
+
+    // If found send password to this email address
+    return { ...requestResponse.success };
+  }
 }
 
 module.exports = new AuthServices();

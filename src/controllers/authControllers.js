@@ -47,6 +47,16 @@ class AuthControllers {
     }
     checkResponse(res, response, __filename);
   }
+
+  async forgetpassword(req, res) {
+    try {
+      const data = await authService.forgetPassword(req.body.email);
+      response = data;
+    } catch (error) {
+      response = error;
+    }
+    checkResponse(res, response, __filename);
+  }
 }
 
 module.exports = new AuthControllers();
