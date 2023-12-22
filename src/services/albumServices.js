@@ -29,16 +29,17 @@ class AlbumServices {
   }
   async getByUserId(pageNumber = 1, pageSize = 6, user) {
     const totalItems = await Album.countDocuments({ user });
-    const page = pagination(pageNumber, pageSize, totalItems);
-    if (page.code === 400) throw page;
-    const album = await Album.find({ user }).skip(page.skip).limit(pageSize);
+    const totalPages = Math.ceil(totalItems / pageSize);
+    // const page = pagination(pageNumber, pageSize, totalItems);
+    // if (page.code === 400) throw page;
+    const album = await Album.find({ user });
     logger.info(`Get ${album.length} photos from user ${user} `);
     return {
       ...requestResponse.success,
       data: album,
       pagination: {
         currentPage: parseInt(pageNumber),
-        totalPages: page.totalPages,
+        totalPages,
         pageSize: parseInt(pageSize),
         totalItems: totalItems,
       },
