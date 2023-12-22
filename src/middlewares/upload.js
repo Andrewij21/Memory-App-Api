@@ -1,11 +1,14 @@
 const multer = require("multer");
 const path = require("path");
 const checkIfEmpty = require("../utils/checkIfEmpty");
+const fs = require("fs");
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
     // console.log({ body: req.body });
-    cb(null, "public/images");
+    const path = `public/images`;
+    fs.mkdirSync(path, { recursive: true });
+    cb(null, path);
   },
   filename(req, file, cb) {
     cb(
