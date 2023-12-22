@@ -16,7 +16,7 @@ npm install
 - [Express](https://expressjs.com/) Node framework for building API
 - [MongoDB](https://www.mongodb.com/) for Database
 - [Cors](https://www.npmjs.com/package/cors) for protection from Cross Site Scripting
-- [Multer](https://www.npmjs.com/package/multer) middleware for handling `multipart/form-data
+- [Multer](https://www.npmjs.com/package/multer) middleware for handling `multipart/form-data`
 - [JWT](https://jwt.io/) a compact URL-safe means of representing claims to be transferred between two parties
 - [Winston](https://www.npmjs.com/package/winston)  is designed to be a simple and universal logging library 
 ## Contributing
