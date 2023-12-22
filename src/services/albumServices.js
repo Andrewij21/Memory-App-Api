@@ -9,16 +9,19 @@ const logger = getLogger(__filename);
 class AlbumServices {
   async get(pageNumber = 1, pageSize = 6) {
     const totalItems = await Album.countDocuments({});
-    const page = pagination(pageNumber, pageSize, totalItems);
-    if (page.code === 400) throw page;
-    const album = await Album.find({}).skip(page.skip).limit(pageSize);
+    const totalPages = Math.ceil(totalItems / pageSize);
+    // const page = pagination(pageNumber, pageSize, totalItems);
+    // if (page.code === 400) throw page;
+    const album = await Album.find({})
+      .limit(pageSize)
+      .skip((pageNumber - 1) * pageSize);
     logger.info(`Get ${album.length} photos `);
     return {
       ...requestResponse.success,
       data: album,
       pagination: {
         currentPage: parseInt(pageNumber),
-        totalPages: page.totalPages,
+        totalPages,
         pageSize: parseInt(pageSize),
         totalItems: totalItems,
       },
