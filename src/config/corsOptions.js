@@ -4,13 +4,14 @@ const logger = getLogger(__filename);
 
 const corsOptions = {
   origin: (origin, callback) => {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      logger.info(`Access granted for origin ${origin}`);
-      callback(null, true);
-    } else {
-      logger.error(`Access denied for origin ${origin}`);
-      callback(null, false);
-    }
+    // if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+    //   logger.info(`Access granted for origin ${origin}`);
+    //   callback(null, true);
+    // } else {
+    //   logger.error(`Access denied for origin ${origin}`);
+    //   callback(null, false);
+    // }
+    callback(null, true);
   },
   optionSuccessStatus: 200,
   credentials: true,
